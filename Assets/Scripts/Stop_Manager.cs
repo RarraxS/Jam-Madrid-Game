@@ -6,6 +6,7 @@ using UnityEngine;
 public class Stop_Manager : MonoBehaviour, IObserver
 {
     public GameObject currentStop;
+    private int numClosedturns;
 
     private bool firstRecolorUndone = true;
 
