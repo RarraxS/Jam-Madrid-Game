@@ -65,7 +65,7 @@ public class Stop_Manager : MonoBehaviour, IObserver
                 if (numCardsCollected >= numTotalCards)
                 {
                     Debug.Log("Has ganado");
-                    //GameWin();
+                    //OpenCanvas(winCanvas);
                 }
             }
         }
@@ -73,12 +73,12 @@ public class Stop_Manager : MonoBehaviour, IObserver
 
     private void ShowCard(int index)
     {
-
+        //OpenCanvas(canvasCard)
     }
 
     private void OpenCanvas(GameObject canvas)
     {
-
+        //Opens the designed canvas
     }
 
     public void OnNotify(string eventInfo, Stop stop, GameObject stopObject)
