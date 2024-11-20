@@ -32,7 +32,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -92,8 +91,6 @@ MonoBehaviour:
   stop:
     stop: {fileID: 7615232757262286346}
     connectedStops: []
-  shutDownProbability: 10
-  minClosedTurns: 1
-  maxClosedTurns: 3
-  colorSelected: {r: 1, g: 0, b: 0, a: 1}
+  stopObject: {fileID: 0}
   image: {fileID: 1447451915373421802}
+  colorSelected: {r: 1, g: 0, b: 0, a: 1}
