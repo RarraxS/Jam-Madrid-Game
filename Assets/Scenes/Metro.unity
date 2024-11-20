@@ -841,7 +841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1478349536
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1100,10 +1100,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d438f0cbeb6880946bfeb7fcf367613e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  goalStops:
+  - {fileID: 1315950200}
+  nonGoalStops:
+  - {fileID: 1136782028}
+  - {fileID: 1371776771}
+  - {fileID: 1687962969}
   currentStop: {fileID: 1136782028}
-  goalStops: []
   numCardsCollected: 0
-  numTotalCards: 0
+  numTotalCards: 1
 --- !u!114 &1865017661
 MonoBehaviour:
   m_ObjectHideFlags: 0

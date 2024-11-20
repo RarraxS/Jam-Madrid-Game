@@ -2,11 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stop_Manager : MonoBehaviour, IObserver
 {
 
-    public GameObject[] goalStops, nonGoalStops;
+    public List<StopCards> goalStops, nonGoalStops;
 
 
     public GameObject currentStop;
@@ -21,8 +22,8 @@ public class Stop_Manager : MonoBehaviour, IObserver
     private void Start()
     {
         ObserverManager.Instance.AddObserver(this);
-        
-        Debug.Log(currentStop.name);
+
+        RandomSpawnPlace();
     }
 
     private void Update()
@@ -32,6 +33,13 @@ public class Stop_Manager : MonoBehaviour, IObserver
             ObserverManager.Instance.NotifyObserver("Recolor Stops", null, currentStop);
             firstRecolorUndone= false;
         }
+    }
+
+    private void RandomSpawnPlace()
+    {
+        int obj = UnityEngine.Random.Range(0, nonGoalStops.Count);
+
+        currentStop = nonGoalStops[obj].stop;
     }
 
     private void CheckMove(Stop stop, GameObject stopObject)
@@ -47,13 +55,30 @@ public class Stop_Manager : MonoBehaviour, IObserver
             }
         }
 
-        for (int i = 0; i < goalStops.Length; i++)
+        for (int i = 0; i < goalStops.Count; i++)
         {
-            if (currentStop == goalStops[i])
+            if (currentStop == goalStops[i].stop)
             {
-                Debug.Log("Has ganado");
+                numCardsCollected++;
+                ShowCard(i);
+
+                if (numCardsCollected >= numTotalCards)
+                {
+                    Debug.Log("Has ganado");
+                    //GameWin();
+                }
             }
         }
+    }
+
+    private void ShowCard(int index)
+    {
+
+    }
+
+    private void OpenCanvas(GameObject canvas)
+    {
+
     }
 
     public void OnNotify(string eventInfo, Stop stop, GameObject stopObject)
@@ -63,4 +88,13 @@ public class Stop_Manager : MonoBehaviour, IObserver
             CheckMove(stop, stopObject);
         }
     }
+}
+
+[Serializable]
+public class StopCards
+{
+    public GameObject stop;
+
+    public Image card;
+    public string descriptionText;
 }
