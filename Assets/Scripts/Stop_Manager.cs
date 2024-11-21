@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,10 +12,14 @@ public class Stop_Manager : MonoBehaviour, IObserver
 
 
     public GameObject currentStop;
-    private int numClosedturns;
+
+    //private int numClosedturns;
 
     public int numCardsCollected;
     [SerializeField] private int numTotalCards;
+
+    [SerializeField] private GameObject[] matchStops;
+
 
 
     private bool firstRecolorUndone = true;
@@ -40,6 +45,21 @@ public class Stop_Manager : MonoBehaviour, IObserver
         int obj = UnityEngine.Random.Range(0, nonGoalStops.Count);
 
         currentStop = nonGoalStops[obj].stop;
+    }
+
+    private void ChooseRandomGoals(List<StopCards> targetList, int numGoals)
+    {
+        for (int i = 0; i < numTotalCards; i++)
+        {
+            do
+            {
+                int index = UnityEngine.Random.Range(0, numGoals);
+
+                matchStops[i] = targetList[index].stop;
+
+                
+            } while (true);
+        }
     }
 
     private void CheckMove(Stop stop, GameObject stopObject)
