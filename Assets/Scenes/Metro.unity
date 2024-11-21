@@ -1101,14 +1101,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goalStops:
-  - {fileID: 1315950200}
+  - stop: {fileID: 1315950200}
+    card: {fileID: 0}
+    descriptionText: 
   nonGoalStops:
-  - {fileID: 1136782028}
-  - {fileID: 1371776771}
-  - {fileID: 1687962969}
-  currentStop: {fileID: 1136782028}
+  - stop: {fileID: 1136782028}
+    card: {fileID: 0}
+    descriptionText: 
+  - stop: {fileID: 1371776771}
+    card: {fileID: 0}
+    descriptionText: 
+  - stop: {fileID: 1687962969}
+    card: {fileID: 0}
+    descriptionText: 
+  currentStop: {fileID: 0}
   numCardsCollected: 0
   numTotalCards: 1
+  matchStops: []
 --- !u!114 &1865017661
 MonoBehaviour:
   m_ObjectHideFlags: 0
