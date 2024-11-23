@@ -1,7 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Unity.Collections;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,7 +22,7 @@ public class Stop_Manager : MonoBehaviour, IObserver
     public int numCardsCollected;
     [SerializeField] private int numTotalCards;
 
-    [SerializeField] private GameObject[] matchStops;
+    [SerializeField] private List<GameObject> matchStops;
 
 
 
@@ -29,6 +33,8 @@ public class Stop_Manager : MonoBehaviour, IObserver
         ObserverManager.Instance.AddObserver(this);
 
         RandomSpawnPlace();
+
+        matchStops = ChooseRandomGoals(goalStops, numTotalCards);
     }
 
     private void Update()
@@ -47,19 +53,28 @@ public class Stop_Manager : MonoBehaviour, IObserver
         currentStop = nonGoalStops[obj].stop;
     }
 
-    private void ChooseRandomGoals(List<StopCards> targetList, int numGoals)
+    private List<GameObject> ChooseRandomGoals(List<StopCards> targetList, int numGoals)
     {
-        for (int i = 0; i < numTotalCards; i++)
+        List<GameObject> resultList = new List<GameObject>();
+
+        GameObject newObject = new GameObject();
+
+        for (int i = 0; i < numGoals; i++)
         {
             do
             {
-                int index = UnityEngine.Random.Range(0, numGoals);
+                int index = UnityEngine.Random.Range(0, targetList.Count);
 
-                matchStops[i] = targetList[index].stop;
+                newObject = targetList[index].stop;
+                Debug.Log("Estoy dentro");
 
-                
-            } while (true);
+            } while (resultList.Contains(newObject));
+
+            resultList.Add(newObject);
+            newObject = null;
         }
+
+        return resultList;
     }
 
     private void CheckMove(Stop stop, GameObject stopObject)
