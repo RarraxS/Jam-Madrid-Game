@@ -1,29 +1,25 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Unity.Collections;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class Stop_Manager : MonoBehaviour, IObserver
 {
 
     public List<StopCards> goalStops, nonGoalStops;
 
-
     public GameObject currentStop;
 
-    //private int numClosedturns;
-
-    public int numCardsCollected;
     [SerializeField] private int numTotalCards;
 
-    [SerializeField] private List<GameObject> matchStops;
+    private List<GameObject> matchStops;
 
+    [SerializeField] private GameObject canvasCard, imageCard;
+
+    private Image imageCardCanvas;
+
+    [SerializeField] private TMP_Text textDescription;
 
 
     private bool firstRecolorUndone = true;
@@ -31,6 +27,10 @@ public class Stop_Manager : MonoBehaviour, IObserver
     private void Start()
     {
         ObserverManager.Instance.AddObserver(this);
+
+        canvasCard.SetActive(false);
+
+        imageCardCanvas = imageCard.GetComponent<Image>();
 
         RandomSpawnPlace();
 
@@ -66,7 +66,6 @@ public class Stop_Manager : MonoBehaviour, IObserver
                 int index = UnityEngine.Random.Range(0, targetList.Count);
 
                 newObject = targetList[index].stop;
-                Debug.Log("Estoy dentro");
 
             } while (resultList.Contains(newObject));
 
@@ -90,14 +89,15 @@ public class Stop_Manager : MonoBehaviour, IObserver
             }
         }
 
-        for (int i = 0; i < goalStops.Count; i++)
+        for (int i = 0; i < matchStops.Count; i++)
         {
-            if (currentStop == goalStops[i].stop)
+            if (currentStop == matchStops[i])
             {
-                numCardsCollected++;
+                matchStops.Remove(currentStop);
+
                 ShowCard(i);
 
-                if (numCardsCollected >= numTotalCards)
+                if (matchStops.Count <= 0)
                 {
                     Debug.Log("Has ganado");
                     //OpenCanvas(winCanvas);
@@ -108,12 +108,15 @@ public class Stop_Manager : MonoBehaviour, IObserver
 
     private void ShowCard(int index)
     {
-        //OpenCanvas(canvasCard)
+        OpenCanvas(canvasCard);
+
+        imageCardCanvas = goalStops[index].card;
+        textDescription.text = goalStops[index].descriptionText;
     }
 
     private void OpenCanvas(GameObject canvas)
     {
-        //Opens the designed canvas
+        canvas.SetActive(true);
     }
 
     public void OnNotify(string eventInfo, Stop stop, GameObject stopObject)
