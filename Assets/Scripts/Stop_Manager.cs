@@ -7,7 +7,9 @@ using TMPro;
 public class Stop_Manager : MonoBehaviour, IObserver
 {
 
-    public List<StopCards> goalStops, nonGoalStops;
+    public List<StopCards> goalStops;
+
+    [SerializeField] private GameObject[] nonGoalStops;
 
     public GameObject currentStop;
 
@@ -48,9 +50,9 @@ public class Stop_Manager : MonoBehaviour, IObserver
 
     private void RandomSpawnPlace()
     {
-        int obj = UnityEngine.Random.Range(0, nonGoalStops.Count);
+        int obj = UnityEngine.Random.Range(0, nonGoalStops.Length);
 
-        currentStop = nonGoalStops[obj].stop;
+        currentStop = nonGoalStops[obj];
     }
 
     private List<GameObject> ChooseRandomGoals(List<StopCards> targetList, int numGoals)
@@ -117,6 +119,11 @@ public class Stop_Manager : MonoBehaviour, IObserver
     private void OpenCanvas(GameObject canvas)
     {
         canvas.SetActive(true);
+    }
+
+    public void CloseCanvas(GameObject canvas)
+    {
+        canvas.SetActive(false);
     }
 
     public void OnNotify(string eventInfo, Stop stop, GameObject stopObject)
